@@ -12,6 +12,12 @@ alert_prio=(
             )
 class Neighborhood(models.Model):
     neighborhood = models.CharField(max_length=60)
+    location=models.CharField(max_length=30,null=True)
+    popn=models.PositiveIntegerField(default=0) 
+    police_no=models.PositiveIntegerField()
+    hospital_no=models.PositiveIntegerField()
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    created_on =models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return  self.neighborhood
@@ -21,13 +27,18 @@ class Neighborhood(models.Model):
     @classmethod
     def update_neighborhood(cls,neighborhood):
         cls.objects.filter(neighborhood=neighborhood).update()
-        
+    
+    @classmethod
+    def find_neighbourhood(cls,neigborhood_name):
+        neighborhood = cls.objects.filter(neighborhood__icontains=neigborhood_name)
+        return neighborhood
+    
     @classmethod
     def delete_neighbourhood(cls,neighbourhood):
         cls.objects.filter(neighbourhood=neighbourhood).delete()
         
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, )
     profile_image = CloudinaryField('image')    
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     full_name =models.CharField(max_length=50)
@@ -72,6 +83,7 @@ class Comment(models.Model):
     comment = models.CharField(max_length=255)
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    posted= models.DateTimeField(auto_now_add=True)
     
     def save_comment(self):
         self.save()
@@ -119,10 +131,14 @@ class Shop(models.Model):
     contact = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.shop_name
+    @classmethod
+    def get_shops(cls):
+        shops = cls.objects.all()
+        return shops
     
     @classmethod
-    def search_business(cls,search_term):
+    def search_shop(cls,search_term):
         business = cls.objects.filter(shop_name__icontains=search_term)
         return business
 class Administration(models.Model):
@@ -145,7 +161,7 @@ class Administration(models.Model):
 class Alerts(models.Model):
     alert_title = models.CharField(max_length=100)
     notification = HTMLField()
-    priority = models.CharField(max_length=15,choices=alert_prio,default="---Select---")
+    priority = models.CharField(max_length=15,choices=alert_prio,default="---Select priority---")
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
     post_date = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,41 @@
+{% load bootstrap5 %}
+{% load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  {% if title %}
+     <title>{{title}}</title> 
+  {% endif %}
+  
+  {% block style %}
+  {% bootstrap_css %}
+     <!-- AOS CSS -->
+     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   
+  {% endblock %}
+    
+
+</head>
+<body >
+  
+    {% block content %} 
+        <!-- Content goes here -->
+    {%endblock%}
+</body>
+{% block scripts %}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          {% bootstrap_javascript %}
+           <!-- AOS JS -->
+           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+           <script>
+             AOS.init({
+                 duration:2000
+             });
+           </script>
+{% endblock%}
+
+</html>

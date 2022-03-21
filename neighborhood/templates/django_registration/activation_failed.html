@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+       
+        
+        {% if  activation_error.code == "already_activated" %}
+        <div class="card">
+            <div class="card-header">
+              Account Activation Status
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ activation_error.message }}</h5>
+              <p>
+                   Click to <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+              </p>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="alert alert-danger"> {{ activation_error.message }} </div>
+            
+        {% endif %}
+        
+            
+    </div>
+    
+{% endblock content %}

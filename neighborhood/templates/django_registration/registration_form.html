@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class='container '>
+    
+        <div class=" col-6 m-auto p-3 mb-5 bg-grey ">
+            <div class="panel-heading bg-dark p-3">
+                <h3 class="text-center text-light">Sign Up</h3>
+                </div>
+                <div class="pan">
+                  <div class="shadow  p-5 m-auto  rounded" style="background-color:rgb(255, 255, 255)">
+            {% if form.errors %}
+                <p class="alert alert-danger"> Password or Username is incorrect </p>
+            {% endif %}
+            <form method='POST'>
+                {% csrf_token %}
+                {% bootstrap_form form%} 
+                <input type="submit" class=" btn btn-outline-primary" value="Create Account">
+            </form>
+        </div>
+    </div>
+    
+{% endblock content %}

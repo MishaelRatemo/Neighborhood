@@ -1,0 +1,31 @@
+
+Welcome to Neigborhood {{user.username}}
+
+
+
+ 
+Congratulations! You're almost set to start using Neigborhood app. Just click the link below to validate your email address.
+      
+      
+      {{site.name}}/accounts/activate/{{activation_key}}
+
+Alternatively you can copy the link and paste it in your browser
+
+        {{site.name}}/accounts/activate/{{activation_key}}
+
+
+
+Note: You must perform this validation within the next {{expiration_days}} days. to keep your new account enabled.
+
+Account details
+    >> Email: {{user.email}}
+    >> Account Name: {{user.username}}    
+
+Thanks for becoming part of Us. Get to Know what is going on in your Village.
+
+
+Regard,
+Support team.
+
+*******************************************************************************
+*******************************************************************************

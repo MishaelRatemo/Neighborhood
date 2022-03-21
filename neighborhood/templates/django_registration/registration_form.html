@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
+{% load static %}
+
+{% if title %}
+<title>Neighborhood {{title}}</title> 
+{% endif %}
 
 {% block content %}
-    <div class='container '>
+    <div class='container d-flex  justify-content-center align-items-center '>
     
-        <div class=" col-6 m-auto p-3 mb-5 bg-grey ">
-            <div class="panel-heading bg-dark p-3">
+        <div class=" col-6 m-auto p-3 mb-5 ">
+            <div class="panel-heading bg-primary p-3">
                 <h3 class="text-center text-light">Sign Up</h3>
                 </div>
                 <div class="pan">

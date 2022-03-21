@@ -9,9 +9,15 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
-from pathlib import Path
+from distutils.command.config import config
 import os
+import  cloudinary
+import cloudinary.uploader
+import  cloudinary.api
+import dj_database_url
+from pathlib import Path
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,6 +141,9 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+
 # Get .env variables
 SECRET_KEY =os.environ.get('SECRET_KEY')
 ACCOUNT_ACTIVATION_DAYS= os.environ.get('ACCOUNT_ACTIVATION_DAYS')
@@ -142,5 +151,10 @@ DEFAULT_FROM_EMAIL=os.environ.get('DEFAULT_FROM_EMAIL')
 EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST=os.environ.get('EMAIL_HOST')
-EMAIL_PORT= int(os.environ.get('EMAIL_PORT'))
+EMAIL_PORT= os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS=True
+
+# #cloudinary configs
+# cloud_name=config('cloud_name')
+# api_key=config('api_key')
+# api_secret=config('api_secret')

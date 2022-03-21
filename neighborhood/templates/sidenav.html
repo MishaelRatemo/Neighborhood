@@ -1,0 +1,58 @@
+
+
+  <nav class="navbar sticky-top bg-dark p-4  navbar-inverse ">
+    <div class="container">
+      <div class="navbar-header">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">home</a>
+            <a href="#">..Hoods </a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>  
+          <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>          
+        <a class="navbar-brand text-white" href="/">Neighborhood</a>
+      </div>
+      <!-- Adding a serch form -->
+      <div class="d-flex navbar-right">
+         <form class="nav-form"  role="search" action="{% url 'search' %}">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search Project" name="business_name">
+              <div class="input-group-btn">
+                <button class="btn  btn-default" type="submit"></button>
+              </div>
+            </div>
+         </form>
+         <a href="{% url 'post' %}">
+  
+         <button class="btn btn-sm btn-outline-info"  id="projects">Post</button>
+  
+         </a>
+         <div class="col ml-4">
+           
+          {% if user.is_authenticated %}
+          <div class="dropdown" >
+            <li class="nav-item dropdown d-flex">
+              <a class="nav-link dropdown-toggle text-white " href="#" id="account" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="rounded-circle img-fluid nav-img" src="{{ user.profile.profile_image.url }}" style="height:55px"  alt=""> 
+                {{user.username}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="account">
+                <li><a class="dropdown-item" href="{%url 'index'%}">Home</a></li>
+                <li><a class="dropdown-item" href="{%url 'profile'%}">Profile</a></li>
+                <li><a class="dropdown-item" href="/accounts/password/change">Change Password</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+            
+          </div>
+          {% else %}
+          <ul class="navbar-nav" >
+             <li><a class='dropdown-item btn btn-default text-light' href="/accounts/login">Login</a></li>
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+      
+    </div>
+  </nav>

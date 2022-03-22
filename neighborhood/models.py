@@ -24,6 +24,12 @@ class Neighborhood(models.Model):
     
     def create_neighborhood(self):
         self.save()
+    
+    @classmethod
+    def get_neighborhoods(cls):
+        sectors = Neighborhood.objects.all()
+        return sectors
+    
     @classmethod
     def update_neighborhood(cls,neighborhood):
         cls.objects.filter(neighborhood=neighborhood).update()
@@ -38,7 +44,7 @@ class Neighborhood(models.Model):
         cls.objects.filter(neighbourhood=neighbourhood).delete()
         
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, )
+    user = models.OneToOneField(User, on_delete=models.CASCADE )
     profile_image = CloudinaryField('image')    
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     full_name =models.CharField(max_length=50)
@@ -66,12 +72,11 @@ class Profile(models.Model):
     
 class Post(models.Model):
     title = models.CharField(max_length=80)
-    image = CloudinaryField('image')
+    image = CloudinaryField('image',null=True)
     post = HTMLField()
     username = models.ForeignKey(User,on_delete=models.CASCADE)
-    neighborhood= models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    neighborhood= models.CharField(max_length=100)
     publishedAt = models.DateTimeField(auto_now_add=True)
-    profile_image = models.ForeignKey(Profile,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -136,6 +141,12 @@ class Shop(models.Model):
     def get_shops(cls):
         shops = cls.objects.all()
         return shops
+    
+    @classmethod
+    def get_business_by_neighborhood(cls,neighborhood_id):
+        messages = cls.objects.filter(neighborhood=neighborhood_id)
+        return messages
+
     
     @classmethod
     def search_shop(cls,search_term):

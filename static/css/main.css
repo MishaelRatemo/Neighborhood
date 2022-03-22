@@ -42,3 +42,6 @@ body{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+  .post_item{
+    box-shadow: 3px 4px 40px 10px rgba(1,1,1, 0.4);
+  }

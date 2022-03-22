@@ -1,29 +1,28 @@
+{% load static %}
 
-
-  <nav class="navbar sticky-top bg-dark p-4  navbar-inverse ">
-    <div class="container">
+  <nav class="navbar sticky-top bg-secondary p-4  navbar-inverse ">
+    <div class="container-fluid">
       <div class="navbar-header">
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">home</a>
-            <a href="#">..Hoods </a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <a href="{% url 'home' %}">Myhome</a>
+            <a href="#">Neighborhoods </a>
+            
         </div>  
-          <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>          
-        <a class="navbar-brand text-white" href="/">Neighborhood</a>
+          <span class="mr-5" style="font-size:30px;cursor:pointer; color:#fff;" onclick="openNav()">&#9776; </span>          
+        <a class="navbar-brand mx-4 px-5 text-white" href="/">Neighborhood</a>
       </div>
       <!-- Adding a serch form -->
       <div class="d-flex navbar-right">
          <form class="nav-form"  role="search" action="{% url 'search' %}">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search Project" name="business_name">
+              <input type="text" class="form-control" placeholder="Search Busines" name="business_name">
               <div class="input-group-btn">
                 <button class="btn  btn-default" type="submit"></button>
               </div>
             </div>
          </form>
-         <a href="{% url 'post' %}">
+         <a href="{% url 'new_post' %}">
   
          <button class="btn btn-sm btn-outline-info"  id="projects">Post</button>
   
@@ -38,9 +37,9 @@
                 {{user.username}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="account">
-                <li><a class="dropdown-item" href="{%url 'index'%}">Home</a></li>
-                <li><a class="dropdown-item" href="{%url 'profile'%}">Profile</a></li>
-                <li><a class="dropdown-item" href="/accounts/password/change">Change Password</a></li>
+                <li><a class="dropdown-item" href="{% url 'index'%}">Home</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile'%}">Profile</a></li>
+                <!-- <li><a class="dropdown-item" href="/accounts/password/change">Change Password</a></li> -->
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
             </li>

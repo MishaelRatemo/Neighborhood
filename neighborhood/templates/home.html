@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'sidenav.html' %}
+<div class="container bg-light">
+    <br><br>
+    <section class="col-md-8 col-sm-12">
+        <h3 style="text-align:center;font-size: 28px">Posts by you and your neighbors</h3>
+        <hr>
+        {% if posts %} 
+        {% for content in posts %}
+        <img src="{{content.image}}" alt="">
+        <p><span style="color:rgb(5, 5, 54)"> <strong> <img src="{{user.profile.profile_image.url}}" height="50" width="50" alt="">  {{user}}</strong> </span> {{content.post}} </p>
+        {% endfor %}
+         {% else %}
+        <p style="text-align:center">No post here yet. Have something to post? <span><a href="{% url 'new_post' %}"></a></span> </p>
+        {% endif %}
+    </section>
+
+
+    <section class="col-md-4 col-sm-12">
+        <h4 style="text-align:center;font-size: 28px"> Businesses in {{user.profile.neighborhood}}</h4>
+        {% if business %} 
+        {% for shop in business %}
+            <div class="container-1">>
+                <a href="{% url 'business'  %}">
+                    <p>{{shop.shop_name}}</p>
+                </a>
+            </div>
+        {% endfor %} 
+        
+        {% else %}
+        <p>No available Shops Yet in your Neighborhood </p>
+        {% endif%}
+    </section>
+
+</div>
+{%endblock%}

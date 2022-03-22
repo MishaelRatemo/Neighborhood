@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static%}
+
+{% if title %}
+<title>{{title}}</title> 
+
+{% endif %}
+
+</head>
+{% block content %}
+{% include 'sidenav.html' %}
+  <div class="container  d-flex justify-content-center align-items-center" >
+
+    <form class=" post_item bg-light mt-5 p-4" action="{% url 'new_post'%}" method="post" enctype="multipart/form-data"  >
+      {%csrf_token%}
+
+      {% bootstrap_form form %}
+      <input type="submit" class="btn btn-success btn-lg" value="Post">
+    </form>
+  </div>
+{% endblock %}

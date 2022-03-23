@@ -2,18 +2,18 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
+    <div class="container h-100 d-flex align-items-center flex-wrap">
        
         
         {% if  activation_error.code == "already_activated" %}
-        <div class="card">
-            <div class="card-header">
+        <div class="card  m-auto col-md-6 ">
+            <div class="card-header bg-warning">
               Account Activation Status
             </div>
             <div class="card-body">
-              <h5 class="card-title">{{ activation_error.message }}</h5>
+              <h5 class="card-title text-danger">{{ activation_error.message }}</h5>
               <p>
-                   Click to <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                   Click to <a href="{% url 'login' %}" class="btn btn-primary">Login</a> instead
               </p>
             </div>
         </div>

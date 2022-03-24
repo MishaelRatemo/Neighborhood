@@ -1,0 +1,1 @@
+web: gunicorn village.wsgi --log-file -

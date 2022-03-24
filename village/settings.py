@@ -9,18 +9,48 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-from distutils.command.config import config
+
 import os
 import  cloudinary
 import cloudinary.uploader
 import  cloudinary.api
 import dj_database_url
 from pathlib import Path
+import  django_heroku
+from  decouple import  config,Csv
+
+
+MODE=config("MODE",default='dev')
+SECRET_KEY=config('SECRET_KEY')
+DEBUG=config('DEBUG',default=False, cast=bool)
+#developemnt mode
+if config('MODE')=='dev':
+    DATABASES={
+        'default':{
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+        }
+    }
+#production mode
+else:
+     DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+    
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -60,6 +90,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'village.urls'
@@ -89,7 +121,11 @@ WSGI_APPLICATION = 'village.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'neighborhood',
+        'USER': 'moringa',
+        'PASSWORD': 'Accesss',
+        
     }
 }
 
@@ -130,11 +166,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR, 'static'),]
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+django_heroku.settings(locals())
 # Media files ( Images, Docs,Audos, Videos)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -146,24 +184,16 @@ LOGIN_REDIRECT_URL= 'profile'
 
 # Get .env variables
 SECRET_KEY =os.environ.get('SECRET_KEY')
-ACCOUNT_ACTIVATION_DAYS= os.environ.get('ACCOUNT_ACTIVATION_DAYS')
+ACCOUNT_ACTIVATION_DAYS= int(os.environ.get('ACCOUNT_ACTIVATION_DAYS'))
 DEFAULT_FROM_EMAIL=os.environ.get('DEFAULT_FROM_EMAIL')
 EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST=os.environ.get('EMAIL_HOST')
-EMAIL_PORT= os.environ.get('EMAIL_PORT')
+EMAIL_PORT= int(os.environ.get('EMAIL_PORT'))
 EMAIL_USE_TLS=True
-
-
-# #cloudinary configs
-# cloud_name=config('cloud_name')
-# api_key=config('api_key')
-# api_secret=config('api_secret')
 
 cloudinary.config(
     cloud_name='mishmish',
     api_key='739237125342173',
     api_secret='0m3FpTW7VNcn3l6_bcja3ztpscw',
 )
-
-SECRET_KEY='django-insecure-z-6qr#twb()*gv$tqewsfm2(841-ixss+wwnwq+^i=kj3c#j*t'

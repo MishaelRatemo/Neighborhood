@@ -2,10 +2,8 @@
 {% load bootstrap5 %}
 {% load static %}
 {% block content %}
-<div class="container">
-  <div class="row">
-        <!-- Empty div -->
-        <div class="col-md-6 m-auto mt-3">
+<div class="container h-100 d-flex align-items-center flex-wrap">        
+        <div class="col-6 card m-auto col-6 ">
             {% if form.errors %}
                 <p class="alert alert-danger"> Password or Username is incorrect or your account has not been activated <br> Check email </p>
             {% endif %}
@@ -29,14 +27,8 @@
                     </form>
                     </div>
                 </div>
-                <div class="col  bg-secondary shadow p-1">
-            </div>
-        </div>
-        <!-- empty div -->
-   
-        
-    </div>
-  </div>
+            </div>          
+        </div>    
 </div>
 
 {% endblock %}

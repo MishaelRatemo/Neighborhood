@@ -2,14 +2,18 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <h1 class=" text-center text-success">
-            You have activated your account now
-        </h1>
-        <p>
-            Click here to
-            <a href="{% url 'login' %}">Login</a>
-        </p>
+    <div class="container h-100 d-flex align-items-center flex-wrap">
+
+        <div class="card m-auto col-6  "> 
+            <h2 class="card-header bg-success text-white">Success</h2>
+            <div class="card-body">
+              <h4 class="card-title">Your account has been activated successfully</h4>
+              <p class="card-text">You are now enabled to access app resources after login.</p>
+              <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login</a>
+            </div>
+          </div>
     </div>
+
+       
     
 {% endblock content %}
